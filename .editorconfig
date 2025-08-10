@@ -1,0 +1,30 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# 所有文件的通用设置
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Proto 文件设置
+[*.proto]
+indent_style = space
+indent_size = 2
+max_line_length = 120
+
+# Go 文件设置
+[*.go]
+indent_style = tab
+indent_size = 4
+
+# Makefile 必须使用 tab
+[Makefile]
+indent_style = tab
+
+# Markdown 文件
+[*.md]
+trim_trailing_whitespace = false

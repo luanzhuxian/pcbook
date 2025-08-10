@@ -1,0 +1,23 @@
+{
+  // 保存时自动格式化
+  "editor.formatOnSave": true,
+  
+  // Proto 文件格式化配置
+  "[proto]": {
+    "editor.defaultFormatter": "xaver.clang-format",
+    "editor.formatOnSave": true
+  },
+  "[proto3]": {
+    "editor.defaultFormatter": "xaver.clang-format",
+    "editor.formatOnSave": true
+  },
+  
+  // Clang-Format 配置
+  "clang-format.executable": "/opt/homebrew/bin/clang-format",
+  "clang-format.style": "file",
+  
+  // 文件关联
+  "files.associations": {
+    "*.proto": "proto3"
+  }
+}
