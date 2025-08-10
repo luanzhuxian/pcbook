@@ -1,15 +1,16 @@
 module github.com/luanzhuxian/pcbook
 
-go 1.24.3
+go 1.23.0
+
+toolchain go1.24.3
 
 require (
-	github.com/luanzhuxian/pcbook v0.0.0-20250401122926-7ae3e68b4a3f
 	github.com/golang/protobuf v1.5.4
 	github.com/google/uuid v1.6.0
 	github.com/jinzhu/copier v0.4.0
 	github.com/stretchr/testify v1.10.0
 	google.golang.org/grpc v1.74.2
-	google.golang.org/protobuf v1.36.7
+	google.golang.org/protobuf v1.36.6
 )
 
 require (
