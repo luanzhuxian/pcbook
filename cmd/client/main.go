@@ -15,6 +15,7 @@ import (
 	"github.com/luanzhuxian/pcbook/sample"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 func testCreateLaptop(laptopClient *client.LaptopClient) {
@@ -115,15 +116,24 @@ func loadTLSCredentials() (credentials.TransportCredentials, error) {
 
 func main() {
 	serverAddress := flag.String("address", "", "the server address")
+	enableTLS := flag.Bool("tls", false, "enable SSL/TLS")
 	flag.Parse()
-	log.Printf("dial server %s", *serverAddress)
+	log.Printf("dial server %s, TLS = %t", *serverAddress, *enableTLS)
 
-	tlsCredentials, err := loadTLSCredentials()
-	if err != nil {
-		log.Fatal("cannot load TLS credentials: ", err)
+	var transportOption grpc.DialOption
+
+	if *enableTLS {
+		tlsCredentials, err := loadTLSCredentials()
+		if err != nil {
+			log.Fatal("cannot load TLS credentials: ", err)
+		}
+		transportOption = grpc.WithTransportCredentials(tlsCredentials)
+	} else {
+		// 默认的 不安全的 传输选项变量
+		transportOption = grpc.WithTransportCredentials(insecure.NewCredentials())
 	}
 
-	conn1, err := grpc.NewClient(*serverAddress, grpc.WithTransportCredentials(tlsCredentials))
+	conn1, err := grpc.NewClient(*serverAddress, transportOption)
 	if err != nil {
 		log.Fatal("cannot dial server: ", err)
 	}
@@ -135,7 +145,7 @@ func main() {
 
 	cc2, err := grpc.NewClient(
 		*serverAddress,
-		grpc.WithTransportCredentials(tlsCredentials),
+		transportOption,
 		grpc.WithUnaryInterceptor(interceptor.Unary()),
 		grpc.WithStreamInterceptor(interceptor.Stream()),
 	)
